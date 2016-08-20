@@ -49,18 +49,15 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(35);
 	
-	var i = 1;
+	var totalcards = 0;
+	var totallists = 0;
+	var totalboards = 0;
 	
 	var Card = function Card(props) {
 	    return React.createElement(
 	        'div',
 	        { className: 'card' },
-	        props.text,
-	        React.createElement(
-	            'div',
-	            { className: 'test' },
-	            i += 1
-	        )
+	        props.text
 	    );
 	};
 	
@@ -80,30 +77,51 @@
 	                React.createElement(Card, { text: 'card text 2' }),
 	                React.createElement(Card, { text: 'card text 3' }),
 	                React.createElement(Card, { text: 'card text 4' })
+	            ),
+	            React.createElement(
+	                'form',
+	                null,
+	                React.createElement('input', { type: 'text' })
 	            )
 	        )
 	    );
 	};
 	
 	var Board = function Board(props) {
+	    var arr = [];
+	    for (var i = 0; i < 3; i++) {
+	        arr.push(React.createElement(List, null));
+	    }
 	    return React.createElement(
 	        'div',
-	        { className: 'board-title' },
-	        props.lists,
+	        { className: 'board' },
+	        props.title,
 	        React.createElement(
 	            'div',
 	            null,
-	            React.createElement(List, { title: 'List Title 1', cards: 'cards should somehow go here.' }),
-	            React.createElement(List, { title: 'List Title 2' })
+	            props.lists,
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement(List, { title: 'List Title 1', cards: arr }),
+	                React.createElement(List, { title: 'List Title 2' })
+	            )
 	        )
 	    );
 	};
 	
 	var App = function App(props) {
+	    var arr = [];
+	
+	    for (var i = 0; i < 3; i++) {
+	        arr.push(React.createElement(List, null));
+	    }
+	
 	    return React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Board, { lists: 'Lists should go in here' })
+	        arr,
+	        React.createElement(Board, { title: 'another board', lists: arr })
 	    );
 	};
 	

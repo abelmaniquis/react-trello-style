@@ -1,22 +1,21 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var i = 1;
+var totalcards = 0;
+var totallists = 0;
+var totalboards = 0;
 
-var Card = function(props){
-    return(
-    <div className="card">
+var Card = function(props) {
+    return (
+        <div className="card">
         {props.text}
-        <div className="test">
-        {i += 1}
-        </div>
     </div>
     )
 }
 
-var List = function(props){
-    return(
-    <div className = "list-title">
+var List = function(props) {
+    return (
+        <div className = "list-title">
         {props.title}
     <div>
         {props.cards}
@@ -26,27 +25,45 @@ var List = function(props){
             <Card text="card text 3"/>
             <Card text="card text 4"/>
         </div>
+        <form>
+            <input type="text"></input>
+        </form>
     </div>
     </div>
     );
 };
 
-var Board = function(props){
-    return(
-    <div className= "board-title">
-    {props.lists}
+var Board = function(props) {
+    var arr = [];
+    for (var i = 0; i < 3; i++) {
+        arr.push(<List/>)
+    };
+
+    return (
+        <div className= "board">
+    {props.title}
         <div>
-            <List title="List Title 1" cards="cards should somehow go here."/>
-            <List title="List Title 2"/>
+        {props.lists}
+            <div>
+                <List title="List Title 1" cards={arr}/>
+                <List title="List Title 2"/>
+            </div>
         </div>
     </div>
     )
 };
 
-var App = function(props){
-    return(
-    <div>
-    <Board lists="Lists should go in here"/>
+var App = function(props) {
+    var arr = []
+
+    for (var i = 0; i < 3; i++) {
+        arr.push(<List/>);
+    }
+
+    return (
+        <div>
+    {arr}
+    <Board title="another board" lists={arr}/>
     </div>
     )
 }

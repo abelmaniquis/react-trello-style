@@ -40,6 +40,8 @@ var PersonList = function() {
 };
 
 
+STATE:
+The state is an object
 
 
 ASSIGNMENT 2 EXERCISE:
@@ -139,7 +141,7 @@ var Button = function(props) {                                                  
     return <button onClick={props.onClick}>{props.text}</button>;               //onClick handler is set to be equal to props.onClick
 };                                                                              //If the component is given a prop called onClick, then that will be called when the function is clicked
 
-var Surprise = React.createClass({                                              //Surprise component: When the button is rendered,Surprise passesthis.onButtonClick as the OnClick prop          
+var Surprise = React.createClass({                                              //Surprise component: When the button is rendered,Surprise passes this.onButtonClick as the OnClick prop          
     getInitialState: function() {                                               //When the button is clicked, the onButtonClicked method of Surprise will be called.    
         return {                                                                
             clicked: false
@@ -178,3 +180,65 @@ When the form is submitted, it should run event.preventDefault(), then call an o
 Pass an onAddInputChanged and an onAddSubmit callback to your List components.
 
 In the callbacks, print a logging message to the console to make sure your callbacks are working. You'll implement the actual card adding functionality in the next lesson.
+
+
+ASSIGNMENT 4 NOTES:
+---------------------------------------------------------------------------------------------------
+THINKING IN REACT
+
+How do you go from a small project with few components
+to a project with hundreds of components?
+
+WHERE STATE SHOULD LIVE:
+Where should state be stored in your component hierarchy?
+
+
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var FlashCard = React.createClass({
+    getInitialState: function() {
+        return {
+            english: 'Grapefruit',
+            french: 'Pamplemousse',
+            selected: 'english'
+        }
+    },
+
+    onCardClick: function() {
+        if (this.state.selected == 'english') {
+            this.setState({
+                selected: 'french'
+            });
+        }
+        else {
+            if (this.state.selected == 'french') {
+                this.setState({
+                    selected: 'english'
+                });
+            }
+        }
+    },
+
+    render: function() {
+        var style = {
+            border: '1px solid black',
+            height: '100px',
+            lineHeight: '100px',
+            width: '300px',
+            textAlign: 'center',
+            fontSize: '2em'
+        };
+        return (
+            <div onClick={this.onCardClick} style={style}>
+                {this.state[this.state.selected]}
+            </div>
+        );
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    ReactDOM.render(<FlashCard/>, document.getElementById('app'));
+});
