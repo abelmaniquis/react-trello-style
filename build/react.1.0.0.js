@@ -49,49 +49,66 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(35);
 	
+	var i = 1;
+	
 	var Card = function Card(props) {
 	    return React.createElement(
 	        'div',
 	        { className: 'card' },
+	        props.text,
 	        React.createElement(
 	            'div',
-	            { className: 'card-name' },
-	            props.name
-	        ),
-	        "This is a card"
+	            { className: 'test' },
+	            i += 1
+	        )
 	    );
 	};
 	
-	var List = function List() {
-	    var cards = [];
-	    for (var i = 0; i < 4; i++) {
-	        cards.push(React.createElement(Card, null));
-	    }
+	var List = function List(props) {
 	    return React.createElement(
 	        'div',
-	        { className: 'the-cards' },
-	        cards
+	        { className: 'list-title' },
+	        props.title,
+	        React.createElement(
+	            'div',
+	            null,
+	            props.cards,
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement(Card, { text: 'card text 1' }),
+	                React.createElement(Card, { text: 'card text 2' }),
+	                React.createElement(Card, { text: 'card text 3' }),
+	                React.createElement(Card, { text: 'card text 4' })
+	            )
+	        )
 	    );
 	};
-	
-	//Should have a title prop which contains the title of the board
-	//Should have a lists prop which contains an array of the titles of the board's lists
 	
 	var Board = function Board(props) {
-	
-	    var lists = [];
-	    for (var i = 0; i < 4; i++) {
-	        lists.push(React.createElement(List, null));
-	    }
 	    return React.createElement(
 	        'div',
-	        { className: 'the-lists' },
-	        lists
+	        { className: 'board-title' },
+	        props.lists,
+	        React.createElement(
+	            'div',
+	            null,
+	            React.createElement(List, { title: 'List Title 1', cards: 'cards should somehow go here.' }),
+	            React.createElement(List, { title: 'List Title 2' })
+	        )
+	    );
+	};
+	
+	var App = function App(props) {
+	    return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(Board, { lists: 'Lists should go in here' })
 	    );
 	};
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    ReactDOM.render(React.createElement(Board, null), document.getElementById('app'));
+	    ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 	});
 
 /***/ },

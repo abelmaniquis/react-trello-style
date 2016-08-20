@@ -1,43 +1,56 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var i = 1;
+
 var Card = function(props){
     return(
-    <div className = "card">
-    <div className = "card-name">{props.name}</div>
-    {"This is a card"}
+    <div className="card">
+        {props.text}
+        <div className="test">
+        {i += 1}
+        </div>
     </div>
     )
 }
 
-var List = function(){
-    var cards = [];
-    for(var i=0; i<4; i++){
-        cards.push(<Card />)
-    }
+var List = function(props){
     return(
-        <div className="the-cards">
-        {cards}
+    <div className = "list-title">
+        {props.title}
+    <div>
+        {props.cards}
+        <div>    
+            <Card text="card text 1"/>
+            <Card text="card text 2"/>
+            <Card text="card text 3"/>
+            <Card text="card text 4"/>
         </div>
+    </div>
+    </div>
     );
 };
-
-//Should have a title prop which contains the title of the board
-//Should have a lists prop which contains an array of the titles of the board's lists
 
 var Board = function(props){
-    
-    var lists = [];
-    for(var i=0; i<4; i++){
-        lists.push(<List/>)
-    }
-    return (
-        <div className="the-lists">
-            {lists}
+    return(
+    <div className= "board-title">
+    {props.lists}
+        <div>
+            <List title="List Title 1" cards="cards should somehow go here."/>
+            <List title="List Title 2"/>
         </div>
-    );
+    </div>
+    )
 };
 
+var App = function(props){
+    return(
+    <div>
+    <Board lists="Lists should go in here"/>
+    </div>
+    )
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    ReactDOM.render(<Board />, document.getElementById('app'));
+    ReactDOM.render(<App/>, document.getElementById('app'));
 });
