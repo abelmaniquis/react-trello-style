@@ -1,33 +1,40 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var totalcards = 0;
-var totallists = 0;
-var totalboards = 0;
-
 var Card = function(props) {
     return (
         <div className="card">
         {props.text}
-    </div>
+        </div>
     )
 }
-
+/*
+var onAddInputChanged = function() {
+    console.log("onAddInputchanged called");
+}
+*/
 var List = function(props) {
+
+    var cardArray = [];
+    for (var i = 0; i < 4; i++) {
+        cardArray.push(<Card text="card text"/>)
+    }
+
+
     return (
-        <div className = "list-title">
+        <div className = "list">
         {props.title}
     <div>
-        {props.cards}
+            {props.cards}
         <div>    
-            <Card text="card text 1"/>
-            <Card text="card text 2"/>
-            <Card text="card text 3"/>
-            <Card text="card text 4"/>
+           {cardArray}
         </div>
-        <form>
-            <input type="text"></input>
-        </form>
+        <div className="form">
+            <form>
+               <input type="text"/>
+               <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
     </div>
     );
@@ -40,13 +47,13 @@ var Board = function(props) {
     };
 
     return (
-        <div className= "board">
+        <div className="board">
     {props.title}
         <div>
         {props.lists}
             <div>
-                <List title="List Title 1" cards={arr}/>
-                <List title="List Title 2"/>
+                <List title="List 1" cards={arr}/>
+                <List title="List 2" cards={arr}/>
             </div>
         </div>
     </div>
@@ -57,7 +64,7 @@ var App = function(props) {
     var arr = []
 
     for (var i = 0; i < 3; i++) {
-        arr.push(<List/>);
+        arr.push(<Board/>);
     }
 
     return (

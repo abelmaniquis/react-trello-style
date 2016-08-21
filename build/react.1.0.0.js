@@ -49,10 +49,6 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(35);
 	
-	var totalcards = 0;
-	var totallists = 0;
-	var totalboards = 0;
-	
 	var Card = function Card(props) {
 	    return React.createElement(
 	        'div',
@@ -60,11 +56,21 @@
 	        props.text
 	    );
 	};
-	
+	/*
+	var onAddInputChanged = function() {
+	    console.log("onAddInputchanged called");
+	}
+	*/
 	var List = function List(props) {
+	
+	    var cardArray = [];
+	    for (var i = 0; i < 4; i++) {
+	        cardArray.push(React.createElement(Card, { text: 'card text' }));
+	    }
+	
 	    return React.createElement(
 	        'div',
-	        { className: 'list-title' },
+	        { className: 'list' },
 	        props.title,
 	        React.createElement(
 	            'div',
@@ -73,15 +79,21 @@
 	            React.createElement(
 	                'div',
 	                null,
-	                React.createElement(Card, { text: 'card text 1' }),
-	                React.createElement(Card, { text: 'card text 2' }),
-	                React.createElement(Card, { text: 'card text 3' }),
-	                React.createElement(Card, { text: 'card text 4' })
+	                cardArray
 	            ),
 	            React.createElement(
-	                'form',
-	                null,
-	                React.createElement('input', { type: 'text' })
+	                'div',
+	                { className: 'form' },
+	                React.createElement(
+	                    'form',
+	                    null,
+	                    React.createElement('input', { type: 'text' }),
+	                    React.createElement(
+	                        'button',
+	                        { type: 'submit' },
+	                        'Submit'
+	                    )
+	                )
 	            )
 	        )
 	    );
@@ -91,7 +103,8 @@
 	    var arr = [];
 	    for (var i = 0; i < 3; i++) {
 	        arr.push(React.createElement(List, null));
-	    }
+	    };
+	
 	    return React.createElement(
 	        'div',
 	        { className: 'board' },
@@ -103,8 +116,8 @@
 	            React.createElement(
 	                'div',
 	                null,
-	                React.createElement(List, { title: 'List Title 1', cards: arr }),
-	                React.createElement(List, { title: 'List Title 2' })
+	                React.createElement(List, { title: 'List 1', cards: arr }),
+	                React.createElement(List, { title: 'List 2', cards: arr })
 	            )
 	        )
 	    );
@@ -114,7 +127,7 @@
 	    var arr = [];
 	
 	    for (var i = 0; i < 3; i++) {
-	        arr.push(React.createElement(List, null));
+	        arr.push(React.createElement(Board, null));
 	    }
 	
 	    return React.createElement(
