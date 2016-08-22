@@ -9,16 +9,7 @@ var Card = function(props) {
     )
 }
 
-var onAddInputChanged = function() {
-    console.log("onAddInputchanged called");
-}
-
-var onAddSubmit = function(){
-    console.log("onAddSubmit called");
-}
-
 var List = function(props){
-
     var cardArray = [];
     for (var i = 0; i < 4; i++) {
         cardArray.push(<Card text="card text"/>)
@@ -75,6 +66,12 @@ var App = function(props) {
     {arr}
     </div>
     )
+}
+
+var onAddInputChanged = function() {
+}
+
+var onAddSubmit = function(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
