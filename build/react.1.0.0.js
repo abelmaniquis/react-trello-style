@@ -56,11 +56,15 @@
 	        props.text
 	    );
 	};
-	/*
-	var onAddInputChanged = function() {
+	
+	var onAddInputChanged = function onAddInputChanged() {
 	    console.log("onAddInputchanged called");
-	}
-	*/
+	};
+	
+	var onAddSubmit = function onAddSubmit() {
+	    console.log("onAddSubmit called");
+	};
+	
 	var List = function List(props) {
 	
 	    var cardArray = [];
@@ -100,9 +104,9 @@
 	};
 	
 	var Board = function Board(props) {
-	    var arr = [];
+	    var listarr = [];
 	    for (var i = 0; i < 3; i++) {
-	        arr.push(React.createElement(List, null));
+	        listarr.push(React.createElement(List, null));
 	    };
 	
 	    return React.createElement(
@@ -116,8 +120,8 @@
 	            React.createElement(
 	                'div',
 	                null,
-	                React.createElement(List, { title: 'List 1', cards: arr }),
-	                React.createElement(List, { title: 'List 2', cards: arr })
+	                React.createElement(List, { title: 'List 1', cards: listarr }),
+	                React.createElement(List, { title: 'List 2', cards: listarr })
 	            )
 	        )
 	    );
@@ -127,14 +131,13 @@
 	    var arr = [];
 	
 	    for (var i = 0; i < 3; i++) {
-	        arr.push(React.createElement(Board, null));
+	        arr.push(React.createElement(Board, { title: 'another board' }));
 	    }
 	
 	    return React.createElement(
 	        'div',
 	        null,
-	        arr,
-	        React.createElement(Board, { title: 'another board', lists: arr })
+	        arr
 	    );
 	};
 	
