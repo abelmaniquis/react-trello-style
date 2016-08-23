@@ -12,24 +12,21 @@ var Card = function(props) {
 var List = function(props){
     var cardArray = [];
     for (var i = 0; i < 4; i++) {
-        cardArray.push(<Card text="card text"/>)
+        cardArray.push(<Card text={"card text" + ": " + (i + 1)}/>)
     }
-
     return (
-        <div className = "list">
+    <div className = "list">
         {props.title}
-    <div>
-            {props.cards}
         <div>    
            {cardArray}
         </div>
         <div className="form">
+        {props.cards}
             <form>
-               <input type="text"/>
+               <input type="text" onChange= "onAddInputChange()"/>
                <button type="submit">Submit</button>
             </form>
         </div>
-    </div>
     </div>
     );
 };
@@ -37,43 +34,28 @@ var List = function(props){
 var Board = function(props) {
     var listarr = [];
     for (var i = 0; i < 3; i++) {
-        listarr.push(<List/>)
+        listarr.push(<List title={"list" + ": " + (i + 1)}/>)
     };
-
     return (
     <div className="board">
     {props.title}
         <div>
         {props.lists}
             <div>
-                <List title="List 1" cards={listarr}/>
-                <List title="List 2" cards={listarr}/>
+              {listarr}
             </div>
         </div>
     </div>
     )
 };
 
-var App = function(props) {
-    var arr = []
-
-    for (var i = 0; i < 3; i++) {
-        arr.push(<Board title="another board"/>);
-    }
-
-    return (
-    <div>
-    {arr}
-    </div>
-    )
-}
-
 var onAddInputChanged = function() {
+    
 }
 
 var onAddSubmit = function(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    ReactDOM.render(<App/>, document.getElementById('app'));
+    ReactDOM.render(<Board title={"board"}/>, document.getElementById('app'));
 });
