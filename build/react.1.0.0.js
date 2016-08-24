@@ -49,74 +49,103 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
-	var Card = React.createClass({
-	    displayName: 'Card',
-	
-	    getInitialState: function getInitialState() {
-	        return {
-	            color: true
-	        };
-	    },
-	    onClick: function onClick() {
-	        this.setState({
-	            color: !this.state.color
-	        });
-	    },
-	    render: function render() {
-	        var classes = 'card' + (this.state.color ? 'color' : '');
-	        return React.createElement(
+	var Card = function Card(props) {
+	    return React.createElement(
+	        'div',
+	        { className: 'card' },
+	        React.createElement(
 	            'div',
-	            { className: classes, onClick: this.onClick },
-	            React.createElement(
-	                'div',
-	                { className: 'card-name' },
-	                this.props.name
-	            ),
-	            React.createElement(
-	                'div',
-	                { classNamt: 'card-content' },
-	                this.props.text
-	            )
-	        );
-	    }
-	});
+	            { className: 'card-name' },
+	            props.title
+	        ),
+	        React.createElement(
+	            'div',
+	            { className: 'card-content' },
+	            props.text
+	        )
+	    );
+	};
 	
 	var List = function List(props) {
+	
+	    var onChange = function onChange(props) {
+	        console.log(props);
+	        onAddInputChanged(props);
+	        console.log("onChange function called");
+	    };
+	
+	    var onAddSubmit = function onAddSubmit(props) {
+	        console.log("onAddSubmit called");
+	    };
+	
+	    var onAddInputChanged = function onAddInputChanged() {
+	        console.log("onAddInputChanged called");
+	    };
+	
 	    var cardArray = [];
 	    for (var i = 0; i < 4; i++) {
-	        cardArray.push(React.createElement(Card, { text: "card text" + ": " + (i + 1) }));
+	        console.log(props);
+	        cardArray.push(React.createElement(Card, { text: "card text" + ": " + (i + 1), title: "content of card" + ": " + (i + 1) }));
 	    }
 	    return React.createElement(
 	        'div',
 	        { className: 'list' },
-	        props.title,
 	        React.createElement(
 	            'div',
-	            null,
-	            cardArray
+	            { className: 'card-title' },
+	            props.title
 	        ),
 	        React.createElement(
 	            'div',
-	            { className: 'form' },
-	            props.cards,
+	            { className: 'cards-prop' },
+	            props.cards
+	        ),
+	        React.createElement(
+	            'div',
+	            { className: 'card-array' },
+	            cardArray
+	        ),
+	        React.createElement(
+	            'form',
+	            { onSubmit: onAddSubmit(props) },
+	            React.createElement('input', { type: 'text', onChange: onChange(props) }),
 	            React.createElement(
-	                'form',
-	                null,
-	                React.createElement('input', { type: 'text', onChange: 'onAddInputChange()' }),
-	                React.createElement(
-	                    'button',
-	                    { type: 'submit' },
-	                    'Submit'
-	                )
+	                'button',
+	                { type: 'submit' },
+	                'Submit'
 	            )
 	        )
 	    );
 	};
 	
+	var ListContainer = React.createClass({
+	    displayName: 'ListContainer',
+	
+	    getInitialState: function getInitialState() {
+	        console.log("getInitialState");
+	        console.log(this);
+	        return {
+	            text: '',
+	            cards: []
+	        };
+	    },
+	    render: function render() {
+	        console.log("LIST CONTAINER PROPS");
+	        console.log(this.props);
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(List, { cards: "TEST TEST TEST TEST TEST" }),
+	            React.createElement(List, null)
+	        );
+	    }
+	});
+	
 	var Board = function Board(props) {
 	    var listarr = [];
 	    for (var i = 0; i < 3; i++) {
 	        listarr.push(React.createElement(List, { title: "list" + ": " + (i + 1) }));
+	        listarr.push(React.createElement(ListContainer, null));
 	    };
 	    return React.createElement(
 	        'div',
@@ -135,26 +164,11 @@
 	    );
 	};
 	
-	var myForm = React.createClass({
-	    displayName: 'myForm',
-	
-	    render: function render() {}
-	});
-	
-	var onAddInputChanged = function onAddInputChanged() {};
-	
-	var onSubmit = function onSubmit(e) {
-	    e.preventDefault();
-	};
-	
-	var onAddSubmit = function onAddSubmit(e) {};
-	
 	document.addEventListener('DOMContentLoaded', function () {
 	    ReactDOM.render(React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Board, { title: "board" }),
-	        React.createElement(Board, { title: "another board" })
+	        React.createElement(ListContainer, null)
 	    ), document.getElementById('app'));
 	});
 
