@@ -1,13 +1,29 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Card = function(props) {
-        return (
-            <div className="card">
-            {props.text}
+var Card = React.createClass({
+   getInitialState: function(){
+       return{
+           color: true
+       }
+   },
+   onClick: function(){
+       this.setState({
+           color: !this.state.color
+       });
+   },
+   render: function(){
+       var classes = 'card' + (this.state.color ? 'color' : '');
+       return(
+        <div className={classes} onClick={this.onClick}>
+            <div className="card-name">{this.props.name}</div>
+            <div classNamt="card-content">
+            {this.props.text}
             </div>
-    )
-}
+        </div>
+        );
+   }
+});
 
 var List = function(props){
     var cardArray = [];
@@ -18,7 +34,7 @@ var List = function(props){
     <div className = "list">
         {props.title}
         <div>    
-           {cardArray}
+          {cardArray}
         </div>
         <div className="form">
         {props.cards}
@@ -53,9 +69,18 @@ var onAddInputChanged = function() {
     
 }
 
+var onSubmit = function(e){
+    e.preventDefault()
+}
+
 var onAddSubmit = function(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    ReactDOM.render(<Board title={"board"}/>, document.getElementById('app'));
+    ReactDOM.render(
+        <div>
+        <Board title={"board"}/>
+        <Board title={"another board"}/>
+        </div>
+    , document.getElementById('app'));
 });

@@ -49,13 +49,37 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
-	var Card = function Card(props) {
-	    return React.createElement(
-	        'div',
-	        { className: 'card' },
-	        props.text
-	    );
-	};
+	var Card = React.createClass({
+	    displayName: 'Card',
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            color: true
+	        };
+	    },
+	    onClick: function onClick() {
+	        this.setState({
+	            color: !this.state.color
+	        });
+	    },
+	    render: function render() {
+	        var classes = 'card' + (this.state.color ? 'color' : '');
+	        return React.createElement(
+	            'div',
+	            { className: classes, onClick: this.onClick },
+	            React.createElement(
+	                'div',
+	                { className: 'card-name' },
+	                this.props.name
+	            ),
+	            React.createElement(
+	                'div',
+	                { classNamt: 'card-content' },
+	                this.props.text
+	            )
+	        );
+	    }
+	});
 	
 	var List = function List(props) {
 	    var cardArray = [];
@@ -110,28 +134,28 @@
 	        )
 	    );
 	};
-	/*
-	var App = function(props) {
-	    var arr = []
 	
-	    for (var i = 0; i < 3; i++) {
-	        arr.push(<Board title={"board" + ": " + i}/>);
-	    }
-	    return (
-	    <div>
-	    {arr}
-	    </div>
-	    )
-	}
-	*/
-	var onAddInputChanged = function onAddInputChanged() {
-	    console.log("This will change");
+	var myForm = React.createClass({
+	    displayName: 'myForm',
+	
+	    render: function render() {}
+	});
+	
+	var onAddInputChanged = function onAddInputChanged() {};
+	
+	var onSubmit = function onSubmit(e) {
+	    e.preventDefault();
 	};
 	
-	var onAddSubmit = function onAddSubmit() {};
+	var onAddSubmit = function onAddSubmit(e) {};
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    ReactDOM.render(React.createElement(Board, { title: "board" }), document.getElementById('app'));
+	    ReactDOM.render(React.createElement(
+	        'div',
+	        null,
+	        React.createElement(Board, { title: "board" }),
+	        React.createElement(Board, { title: "another board" })
+	    ), document.getElementById('app'));
 	});
 
 /***/ },

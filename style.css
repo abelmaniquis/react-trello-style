@@ -1,12 +1,27 @@
 .card{
+    width: 50px;
+    text-align:center;
+    border: 1px solid black;
+    padding: 10px;
+    margin:10px;
+    display:inline-block;
     color:blue;
 }
 
 .list{
+    width:500px;
+    height:250px;
+    text-align:center;
+    border:1px solid black;
+    padding:10px;
+    margin:10px;
     color:red;
     margin:auto;
 }
 
 .board{
+    width:1000px;
+    height:1000px;
+    display:inline-block;
     color:green;
 }
