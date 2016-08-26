@@ -1,93 +1,118 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+/*
+REFERENCE:https://www.youtube.com/watch?v=bH7UXQTCfm4&index=6&list=PL6gx4Cwl9DGBuKtLgPR_zWYnrwv-JllpA
 
-var Card = React.createClass ({
-    getInitialState: function(){
+You are on part 10
+*/
+
+var Card = React.createClass({
+    getInitialState: function() {
+        return {
+            editing: false
+        }
+    },
+    edit: function() {
+        this.setState({editing: true});
+    },
+    remove: function() {
+        this.props.deleteFromList(this.props.index)
         
     },
-    render: function(){
-    return (
-        <div className="card">
-            <div className="card-name">{this.props.title}</div>
-            <div className="card-content">{this.props.text}</div>
-        </div>
-    )}
+    save: function() {
+        this.props.updateCardText(this.refs.newText.value,this.props.index)
+        this.setState({editing: false});
+    },
+    renderNormal: function() {
+        return (
+            <div className="CardContainer">
+        <div className="CardText">{this.props.children}</div>
+        <button onClick={this.edit} className='button-primary'>Edit</button>
+        <button onClick={this.remove} className='button-danger'>Remove</button>
+       </div>)
+    },
+    renderForm: function() {
+        return (
+            <div className="CardContainer">
+        <textarea ref='newText' defaultValue={this.props.children}></textarea>
+        <button onClick={this.save} className='button-success'>Save</button>
+       </div>)
+    },
+    render: function() {
+        if (this.state.editing) {
+            return this.renderForm();
+        }
+        else {
+            return this.renderNormal();
+        }
+    }
 });
 
 var List = React.createClass({
-    onAddSubmit: function(event){
-        event.preventDefault();
-        console.log('onAddSubmit called');
+    getInitialState: function(){
+        return{
+            cards:[
+            'card1', 
+            'card2',
+            "card3",
+            "card4"
+            ]};
     },
-    onChange: function(event) {
-        event.preventDefault();
-        console.log('onChange called');
+    addCard: function(i){
+        var arr = this.state.cards;
+        arr.push(['This is a new card']);
+        this.setState({Cards:arr});
     },
-
-    render: function(props) {
-        var cardList = [];
-        for (var i=0; i<3; i++) {
-            cardList.push(<Card text={'card text' + i}/>)
-        }
-        return (
-            <div className='cardList'>
-                <div className='list-title'>{this.props.title}</div>
-                <div className='list-cards'>{cardList}</div>
-                <form onSubmit={this.onAddSubmit}>
-                    <input type='text' onChange={this.onChange}/>
-                    <button type='submit'>Submit</button>
-                </form>
-            </div>
-        )
-    }
-});
-
-var ListContainer = React.createClass({
-    getInitialState: function() {
-        return {
-            text: '',
-            cards: [],
-        };
+    
+    removeCard: function(i){
+        var arr = this.state.cards;
+        arr.splice(i,1);
+        
+        this.setState({Cards:arr})
+    },
+    
+    updateCard: function(newText,i){
+        console.log("from List.updateCard");
+        var arr= this.state.cards;
+        arr[i] = newText;
+        console.log(newText);
+        this.setState({Cards:arr});
+    },
+    eachCard: function(text,i){
+        return(
+        <Card key ={i} index={i} updateCardText={this.updateCard} deleteFromList={this.removeCard}>
+        {text}
+        </Card>);
     },
     render: function(){
         return(
-            <div>
-            <List/>
-            <List/>
-            </div>
-            )
+            <div className="List">
+                {this.state.cards.map(this.eachCard)}
+                <button onClick ={this.addCard}>Add Card</button>
+            </div> 
+        );
     }
+    
+    
 });
 
-var Board = function(props) {
-    
-    var listarr = [];
-    for (var i = 0; i < 3; i++) {
-        listarr.push(<List title={"list" + ": " + (i + 1)}/>)
-        listarr.push(<ListContainer/>);
-    };
-    return (
-        <div className="board">
-    {props.title}
-        <div>
-        {props.lists}
-            <div>
-              {listarr}
-            </div>
-        </div>
-    </div>
-    )
-};
-
-
+var Board = React.createClass({
+    getInitialState: function(){
+        
+    },
+   render: function(){
+       return(
+       <div className="Board">
+        <Board/>
+       </div>
+       );
+   }
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
         <div>
-        <Board title= "BOOOOAAAAARRRDDDDDD!!!!!!"/>
-        <List title="effing list">
-        </List>
-        <Card title="I am a card" text="Can you see me?"/>
+        <List/>
         </div>, document.getElementById('app'));
 });

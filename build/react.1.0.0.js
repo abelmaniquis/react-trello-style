@@ -49,120 +49,139 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
-	var Card = function Card(props) {
-	    return React.createElement(
-	        'div',
-	        { className: 'card' },
-	        React.createElement(
+	/*
+	REFERENCE:https://www.youtube.com/watch?v=bH7UXQTCfm4&index=6&list=PL6gx4Cwl9DGBuKtLgPR_zWYnrwv-JllpA
+	
+	You are on part 10
+	*/
+	
+	var Card = React.createClass({
+	    displayName: 'Card',
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            editing: false
+	        };
+	    },
+	    edit: function edit() {
+	        this.setState({ editing: true });
+	    },
+	    remove: function remove() {
+	        this.props.deleteFromList(this.props.index);
+	    },
+	    save: function save() {
+	        this.props.updateCardText(this.refs.newText.value, this.props.index);
+	        this.setState({ editing: false });
+	    },
+	    renderNormal: function renderNormal() {
+	        return React.createElement(
 	            'div',
-	            { className: 'card-name' },
-	            props.title
-	        ),
-	        React.createElement(
+	            { className: 'CardContainer' },
+	            React.createElement(
+	                'div',
+	                { className: 'CardText' },
+	                this.props.children
+	            ),
+	            React.createElement(
+	                'button',
+	                { onClick: this.edit, className: 'button-primary' },
+	                'Edit'
+	            ),
+	            React.createElement(
+	                'button',
+	                { onClick: this.remove, className: 'button-danger' },
+	                'Remove'
+	            )
+	        );
+	    },
+	    renderForm: function renderForm() {
+	        return React.createElement(
 	            'div',
-	            { className: 'card-content' },
-	            props.text
-	        )
-	    );
-	};
+	            { className: 'CardContainer' },
+	            React.createElement('textarea', { ref: 'newText', defaultValue: this.props.children }),
+	            React.createElement(
+	                'button',
+	                { onClick: this.save, className: 'button-success' },
+	                'Save'
+	            )
+	        );
+	    },
+	    render: function render() {
+	        if (this.state.editing) {
+	            return this.renderForm();
+	        } else {
+	            return this.renderNormal();
+	        }
+	    }
+	});
 	
 	var List = React.createClass({
 	    displayName: 'List',
 	
-	    onAddSubmit: function onAddSubmit(event) {
-	        event.preventDefault();
-	        console.log('onAddSubmit called');
-	    },
-	    onChange: function onChange(event) {
-	        event.preventDefault();
-	        console.log('onChange called');
-	    },
-	
-	    render: function render(props) {
-	        var cardList = [];
-	        for (var i = 0; i < 3; i++) {
-	            cardList.push(React.createElement(Card, { text: 'card text' + i }));
-	        }
-	        return React.createElement(
-	            'div',
-	            { className: 'cardList' },
-	            React.createElement(
-	                'div',
-	                { className: 'list-title' },
-	                this.props.title
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'list-cards' },
-	                cardList
-	            ),
-	            React.createElement(
-	                'form',
-	                { onSubmit: this.onAddSubmit },
-	                React.createElement('input', { type: 'text', onChange: this.onChange }),
-	                React.createElement(
-	                    'button',
-	                    { type: 'submit' },
-	                    'Submit'
-	                )
-	            )
-	        );
-	    }
-	});
-	
-	var ListContainer = React.createClass({
-	    displayName: 'ListContainer',
-	
 	    getInitialState: function getInitialState() {
 	        return {
-	            text: '',
-	            cards: []
-	        };
+	            cards: ['card1', 'card2', "card3", "card4"] };
+	    },
+	    addCard: function addCard(i) {
+	        var arr = this.state.cards;
+	        arr.push(['This is a new card']);
+	        this.setState({ Cards: arr });
+	    },
+	
+	    removeCard: function removeCard(i) {
+	        var arr = this.state.cards;
+	        arr.splice(i, 1);
+	
+	        this.setState({ Cards: arr });
+	    },
+	
+	    updateCard: function updateCard(newText, i) {
+	        console.log("from List.updateCard");
+	        var arr = this.state.cards;
+	        arr[i] = newText;
+	        console.log(newText);
+	        this.setState({ Cards: arr });
+	    },
+	    eachCard: function eachCard(text, i) {
+	        return React.createElement(
+	            Card,
+	            { key: i, index: i, updateCardText: this.updateCard, deleteFromList: this.removeCard },
+	            text
+	        );
 	    },
 	    render: function render() {
 	        return React.createElement(
 	            'div',
-	            null,
-	            React.createElement(List, null),
-	            React.createElement(List, null)
+	            { className: 'List' },
+	            this.state.cards.map(this.eachCard),
+	            React.createElement(
+	                'button',
+	                { onClick: this.addCard },
+	                'Add Card'
+	            )
+	        );
+	    }
+	
+	});
+	
+	var Board = React.createClass({
+	    displayName: 'Board',
+	
+	    getInitialState: function getInitialState() {},
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'Board' },
+	            React.createElement(Board, null)
 	        );
 	    }
 	});
-	
-	var Board = function Board(props) {
-	
-	    var listarr = [];
-	    for (var i = 0; i < 3; i++) {
-	        listarr.push(React.createElement(List, { title: "list" + ": " + (i + 1) }));
-	        listarr.push(React.createElement(ListContainer, null));
-	    };
-	    return React.createElement(
-	        'div',
-	        { className: 'board' },
-	        props.title,
-	        React.createElement(
-	            'div',
-	            null,
-	            props.lists,
-	            React.createElement(
-	                'div',
-	                null,
-	                listarr
-	            )
-	        )
-	    );
-	};
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    ReactDOM.render(React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Board, { title: 'BOOOOAAAAARRRDDDDDD!!!!!!' }),
-	        React.createElement(
-	            List,
-	            { title: 'effing list' },
-	            React.createElement(Card, { title: 'I am a card', text: 'Can you see me?' })
-	        )
+	        React.createElement(List, null)
 	    ), document.getElementById('app'));
 	});
 
