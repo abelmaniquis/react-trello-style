@@ -66,82 +66,71 @@
 	    );
 	};
 	
-	var List = function List(props) {
+	var List = React.createClass({
+	    displayName: 'List',
 	
-	    var onChange = function onChange(props) {
-	        console.log(props);
-	        onAddInputChanged(props);
-	        console.log("onChange function called");
-	    };
+	    onAddSubmit: function onAddSubmit(event) {
+	        event.preventDefault();
+	        console.log('onAddSubmit called');
+	    },
+	    onChange: function onChange(event) {
+	        event.preventDefault();
+	        console.log('onChange called');
+	    },
 	
-	    var onAddSubmit = function onAddSubmit(props) {
-	        console.log("onAddSubmit called");
-	    };
-	
-	    var onAddInputChanged = function onAddInputChanged() {
-	        console.log("onAddInputChanged called");
-	    };
-	
-	    var cardArray = [];
-	    for (var i = 0; i < 4; i++) {
-	        console.log(props);
-	        cardArray.push(React.createElement(Card, { text: "card text" + ": " + (i + 1), title: "content of card" + ": " + (i + 1) }));
-	    }
-	    return React.createElement(
-	        'div',
-	        { className: 'list' },
-	        React.createElement(
+	    render: function render(props) {
+	        var cardList = [];
+	        for (var i = 0; i < 3; i++) {
+	            cardList.push(React.createElement(Card, { text: 'card text' + i }));
+	        }
+	        return React.createElement(
 	            'div',
-	            { className: 'card-title' },
-	            props.title
-	        ),
-	        React.createElement(
-	            'div',
-	            { className: 'cards-prop' },
-	            props.cards
-	        ),
-	        React.createElement(
-	            'div',
-	            { className: 'card-array' },
-	            cardArray
-	        ),
-	        React.createElement(
-	            'form',
-	            { onSubmit: onAddSubmit(props) },
-	            React.createElement('input', { type: 'text', onChange: onChange(props) }),
+	            { className: 'cardList' },
 	            React.createElement(
-	                'button',
-	                { type: 'submit' },
-	                'Submit'
+	                'div',
+	                { className: 'list-title' },
+	                this.props.title
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'list-cards' },
+	                cardList
+	            ),
+	            React.createElement(
+	                'form',
+	                { onSubmit: this.onAddSubmit },
+	                React.createElement('input', { type: 'text', onChange: this.onChange }),
+	                React.createElement(
+	                    'button',
+	                    { type: 'submit' },
+	                    'Submit'
+	                )
 	            )
-	        )
-	    );
-	};
+	        );
+	    }
+	});
 	
 	var ListContainer = React.createClass({
 	    displayName: 'ListContainer',
 	
 	    getInitialState: function getInitialState() {
-	        console.log("getInitialState");
-	        console.log(this);
 	        return {
 	            text: '',
 	            cards: []
 	        };
 	    },
 	    render: function render() {
-	        console.log("LIST CONTAINER PROPS");
-	        console.log(this.props);
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(List, { cards: "TEST TEST TEST TEST TEST" }),
+	            React.createElement(List, null),
 	            React.createElement(List, null)
 	        );
 	    }
 	});
 	
 	var Board = function Board(props) {
+	
 	    var listarr = [];
 	    for (var i = 0; i < 3; i++) {
 	        listarr.push(React.createElement(List, { title: "list" + ": " + (i + 1) }));
@@ -168,7 +157,12 @@
 	    ReactDOM.render(React.createElement(
 	        'div',
 	        null,
-	        React.createElement(ListContainer, null)
+	        React.createElement(Board, { title: 'BOOOOAAAAARRRDDDDDD!!!!!!' }),
+	        React.createElement(
+	            List,
+	            { title: 'effing list' },
+	            React.createElement(Card, { title: 'I am a card', text: 'Can you see me?' })
+	        )
 	    ), document.getElementById('app'));
 	});
 
