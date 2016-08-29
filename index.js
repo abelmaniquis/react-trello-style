@@ -26,15 +26,15 @@ var Card = React.createClass({
     },
     renderNormal: function() {
         return (
-            <div className="CardContainer">
-        <div className="CardText">{this.props.children}</div>
+            <div className="cardContainer">
+        <div className="cardText">{this.props.children}</div>
         <button onClick={this.edit} className='button-primary'>Edit</button>
         <button onClick={this.remove} className='button-danger'>Remove</button>
        </div>)
     },
     renderForm: function() {
         return (
-            <div className="CardContainer">
+            <div className="cardContainer">
         <textarea ref='newText' defaultValue={this.props.children}></textarea>
         <button onClick={this.save} className='button-success'>Save</button>
        </div>)
@@ -87,7 +87,7 @@ var List = React.createClass({
     },
     render: function(){
         return(
-            <div className="List">
+            <div className="list">
                 {this.state.cards.map(this.eachCard)}
                 <button onClick ={this.addCard}>Add Card</button>
             </div> 
@@ -99,12 +99,12 @@ var List = React.createClass({
 
 var Board = React.createClass({
     getInitialState: function(){
-        
+        return{boards:['board1','board2','board3']};    
     },
-   render: function(){
+    render: function(){
        return(
-       <div className="Board">
-        <Board/>
+       <div className="board">
+        <List/>
        </div>
        );
    }
@@ -113,6 +113,6 @@ var Board = React.createClass({
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
         <div>
-        <List/>
+        <Board/>
         </div>, document.getElementById('app'));
 });

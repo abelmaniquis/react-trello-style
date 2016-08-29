@@ -76,10 +76,10 @@
 	    renderNormal: function renderNormal() {
 	        return React.createElement(
 	            'div',
-	            { className: 'CardContainer' },
+	            { className: 'cardContainer' },
 	            React.createElement(
 	                'div',
-	                { className: 'CardText' },
+	                { className: 'cardText' },
 	                this.props.children
 	            ),
 	            React.createElement(
@@ -97,7 +97,7 @@
 	    renderForm: function renderForm() {
 	        return React.createElement(
 	            'div',
-	            { className: 'CardContainer' },
+	            { className: 'cardContainer' },
 	            React.createElement('textarea', { ref: 'newText', defaultValue: this.props.children }),
 	            React.createElement(
 	                'button',
@@ -152,7 +152,7 @@
 	    render: function render() {
 	        return React.createElement(
 	            'div',
-	            { className: 'List' },
+	            { className: 'list' },
 	            this.state.cards.map(this.eachCard),
 	            React.createElement(
 	                'button',
@@ -167,12 +167,14 @@
 	var Board = React.createClass({
 	    displayName: 'Board',
 	
-	    getInitialState: function getInitialState() {},
+	    getInitialState: function getInitialState() {
+	        return { boards: ['board1', 'board2', 'board3'] };
+	    },
 	    render: function render() {
 	        return React.createElement(
 	            'div',
-	            { className: 'Board' },
-	            React.createElement(Board, null)
+	            { className: 'board' },
+	            React.createElement(List, null)
 	        );
 	    }
 	});
@@ -181,7 +183,7 @@
 	    ReactDOM.render(React.createElement(
 	        'div',
 	        null,
-	        React.createElement(List, null)
+	        React.createElement(Board, null)
 	    ), document.getElementById('app'));
 	});
 
