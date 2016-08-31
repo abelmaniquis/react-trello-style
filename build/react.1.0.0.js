@@ -183,6 +183,8 @@
 	    ReactDOM.render(React.createElement(
 	        'div',
 	        null,
+	        React.createElement(Board, null),
+	        React.createElement(Board, null),
 	        React.createElement(Board, null)
 	    ), document.getElementById('app'));
 	});

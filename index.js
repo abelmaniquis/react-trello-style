@@ -105,6 +105,8 @@ var Board = React.createClass({
        return(
        <div className="board">
         <List/>
+        <List/>
+        <List/>
        </div>
        );
    }
@@ -113,6 +115,8 @@ var Board = React.createClass({
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
         <div>
+        <Board/>
+        <Board/>
         <Board/>
         </div>, document.getElementById('app'));
 });

@@ -7,5 +7,8 @@ var Index = require('../index');
 describe('Index.js',function(){
    it('Renders a card',function(){
        
+       var renderer = TestUtils.createRenderer();
+       renderer.render()
+       
    }) 
 });
