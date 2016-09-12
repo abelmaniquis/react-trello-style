@@ -1,16 +1,14 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 var Card = React.createClass({
-    getInitialState: function() {
-        return {
-            editing: false
-        }
+    getInitialState(){
+        editing: false
     },
-    edit: function() {
+    edit(){
         this.setState({editing: true});
     },
-    remove: function() {
+    remove() {
         this.props.deleteFromList(this.props.index)
         
     },

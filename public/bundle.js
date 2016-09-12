@@ -51,11 +51,8 @@
 	
 	var Card = React.createClass({
 	    displayName: 'Card',
-	
 	    getInitialState: function getInitialState() {
-	        return {
-	            editing: false
-	        };
+	        editing: false;
 	    },
 	    edit: function edit() {
 	        this.setState({ editing: true });
@@ -63,6 +60,7 @@
 	    remove: function remove() {
 	        this.props.deleteFromList(this.props.index);
 	    },
+	
 	    save: function save() {
 	        this.props.updateCardText(this.refs.newText.value, this.props.index);
 	        this.setState({ editing: false });

@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
+    "watch": "webpack --watch",
     "build:js": "npm run clean:js && webpack",
     "watch:js": "npm run build:js && webpack --watch",
     "clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
