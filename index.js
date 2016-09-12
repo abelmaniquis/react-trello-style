@@ -1,12 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-/*
-REFERENCE:https://www.youtube.com/watch?v=bH7UXQTCfm4&index=6&list=PL6gx4Cwl9DGBuKtLgPR_zWYnrwv-JllpA
-
-You are on part 10
-*/
-
 var Card = React.createClass({
     getInitialState: function() {
         return {

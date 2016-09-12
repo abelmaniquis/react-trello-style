@@ -49,12 +49,6 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
-	/*
-	REFERENCE:https://www.youtube.com/watch?v=bH7UXQTCfm4&index=6&list=PL6gx4Cwl9DGBuKtLgPR_zWYnrwv-JllpA
-	
-	You are on part 10
-	*/
-	
 	var Card = React.createClass({
 	    displayName: 'Card',
 	
@@ -174,6 +168,8 @@
 	        return React.createElement(
 	            'div',
 	            { className: 'board' },
+	            React.createElement(List, null),
+	            React.createElement(List, null),
 	            React.createElement(List, null)
 	        );
 	    }
