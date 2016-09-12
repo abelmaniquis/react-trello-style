@@ -1,26 +1,33 @@
 var path = require('path');
-var webpack = require('webpack');
-var packageData = require('./package.json');
-var filename = [packageData.name, packageData.version, 'js'];
 
 module.exports = {
-    entry: path.resolve(__dirname, packageData.main),
+    context: __dirname,
+    entry: './js/ClientApp.jsx',
     output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: filename.join('.'),
+        path: path.join(__dirname, 'public'),
+        filename:'bundle.js'
+    },
+    resolve:{
+        extensions: ['','.js','.jsx','.json']
+    },
+    stats:{
+      colors:true,
+      reasons:true,
+      chunks:false
     },
     devtool: 'source-map',
     module: {
         preloaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
             }
         ],
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx$/,
                 exclude: /(node_modules)/,
-                loader: 'babel',
+                loader: 'babel-loader',
+                exclude: /node_modules/,
                 query: {
                     presets: ['es2015', 'react']
                 }

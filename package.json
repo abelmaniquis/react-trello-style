@@ -16,7 +16,7 @@
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
+    "build": "webpack",
     "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
     "build:js": "npm run clean:js && webpack",
     "watch:js": "npm run build:js && webpack --watch",
