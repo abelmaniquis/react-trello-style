@@ -1,9 +1,11 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-var Card = React.createClass({
+const Card = React.createClass({
     getInitialState(){
+        return{
         editing: false
+        }
     },
     edit(){
         this.setState({editing: true});
@@ -12,11 +14,11 @@ var Card = React.createClass({
         this.props.deleteFromList(this.props.index)
         
     },
-    save: function() {
+    save() {
         this.props.updateCardText(this.refs.newText.value,this.props.index)
         this.setState({editing: false});
     },
-    renderNormal: function() {
+    renderNormal() {
         return (
             <div className="cardContainer">
         <div className="cardText">{this.props.children}</div>
@@ -24,14 +26,14 @@ var Card = React.createClass({
         <button onClick={this.remove} className='button-danger'>Remove</button>
        </div>)
     },
-    renderForm: function() {
+    renderForm() {
         return (
             <div className="cardContainer">
         <textarea ref='newText' defaultValue={this.props.children}></textarea>
         <button onClick={this.save} className='button-success'>Save</button>
        </div>)
     },
-    render: function() {
+    render() {
         if (this.state.editing) {
             return this.renderForm();
         }

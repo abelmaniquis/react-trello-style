@@ -52,7 +52,9 @@
 	var Card = React.createClass({
 	    displayName: 'Card',
 	    getInitialState: function getInitialState() {
-	        editing: false;
+	        return {
+	            editing: false
+	        };
 	    },
 	    edit: function edit() {
 	        this.setState({ editing: true });
