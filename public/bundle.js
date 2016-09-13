@@ -48,132 +48,9 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
-	
-	var Card = React.createClass({
-	    displayName: 'Card',
-	    getInitialState: function getInitialState() {
-	        return {
-	            editing: false
-	        };
-	    },
-	    edit: function edit() {
-	        this.setState({ editing: true });
-	    },
-	    remove: function remove() {
-	        this.props.deleteFromList(this.props.index);
-	    },
-	
-	    save: function save() {
-	        this.props.updateCardText(this.refs.newText.value, this.props.index);
-	        this.setState({ editing: false });
-	    },
-	    renderNormal: function renderNormal() {
-	        return React.createElement(
-	            'div',
-	            { className: 'cardContainer' },
-	            React.createElement(
-	                'div',
-	                { className: 'cardText' },
-	                this.props.children
-	            ),
-	            React.createElement(
-	                'button',
-	                { onClick: this.edit, className: 'button-primary' },
-	                'Edit'
-	            ),
-	            React.createElement(
-	                'button',
-	                { onClick: this.remove, className: 'button-danger' },
-	                'Remove'
-	            )
-	        );
-	    },
-	    renderForm: function renderForm() {
-	        return React.createElement(
-	            'div',
-	            { className: 'cardContainer' },
-	            React.createElement('textarea', { ref: 'newText', defaultValue: this.props.children }),
-	            React.createElement(
-	                'button',
-	                { onClick: this.save, className: 'button-success' },
-	                'Save'
-	            )
-	        );
-	    },
-	    render: function render() {
-	        if (this.state.editing) {
-	            return this.renderForm();
-	        } else {
-	            return this.renderNormal();
-	        }
-	    }
-	});
-	
-	var List = React.createClass({
-	    displayName: 'List',
-	
-	    getInitialState: function getInitialState() {
-	        return {
-	            cards: ['card1', 'card2', "card3", "card4"] };
-	    },
-	    addCard: function addCard(i) {
-	        var arr = this.state.cards;
-	        arr.push(['This is a new card']);
-	        this.setState({ Cards: arr });
-	    },
-	
-	    removeCard: function removeCard(i) {
-	        var arr = this.state.cards;
-	        arr.splice(i, 1);
-	
-	        this.setState({ Cards: arr });
-	    },
-	
-	    updateCard: function updateCard(newText, i) {
-	        console.log("from List.updateCard");
-	        var arr = this.state.cards;
-	        arr[i] = newText;
-	        console.log(newText);
-	        this.setState({ Cards: arr });
-	    },
-	    eachCard: function eachCard(text, i) {
-	        return React.createElement(
-	            Card,
-	            { key: i, index: i, updateCardText: this.updateCard, deleteFromList: this.removeCard },
-	            text
-	        );
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'list' },
-	            this.state.cards.map(this.eachCard),
-	            React.createElement(
-	                'button',
-	                { onClick: this.addCard },
-	                'Add Card'
-	            )
-	        );
-	    }
-	
-	});
-	
-	var Board = React.createClass({
-	    displayName: 'Board',
-	
-	    getInitialState: function getInitialState() {
-	        return { boards: ['board1', 'board2', 'board3'] };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'board' },
-	            React.createElement(List, null),
-	            React.createElement(List, null),
-	            React.createElement(List, null)
-	        );
-	    }
-	});
+	var Card = __webpack_require__(172);
+	var List = __webpack_require__(173);
+	var Board = __webpack_require__(174);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    ReactDOM.render(React.createElement(
@@ -21535,6 +21412,164 @@
 	
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(34);
+	
+	var Card = React.createClass({
+	    displayName: 'Card',
+	    getInitialState: function getInitialState() {
+	        return {
+	            editing: false
+	        };
+	    },
+	    edit: function edit() {
+	        this.setState({ editing: true });
+	    },
+	    remove: function remove() {
+	        this.props.deleteFromList(this.props.index);
+	    },
+	    save: function save() {
+	        this.props.updateCardText(this.refs.newText.value, this.props.index);
+	        this.setState({ editing: false });
+	    },
+	    renderNormal: function renderNormal() {
+	        return React.createElement(
+	            'div',
+	            { className: 'cardContainer' },
+	            React.createElement(
+	                'div',
+	                { className: 'cardText' },
+	                this.props.children
+	            ),
+	            React.createElement(
+	                'button',
+	                { onClick: this.edit, className: 'button-primary' },
+	                'Edit'
+	            ),
+	            React.createElement(
+	                'button',
+	                { onClick: this.remove, className: 'button-danger' },
+	                'Remove'
+	            )
+	        );
+	    },
+	    renderForm: function renderForm() {
+	        return React.createElement(
+	            'div',
+	            { className: 'cardContainer' },
+	            React.createElement('textarea', { ref: 'newText', defaultValue: this.props.children }),
+	            React.createElement(
+	                'button',
+	                { onClick: this.save, className: 'button-success' },
+	                'Save'
+	            )
+	        );
+	    },
+	    render: function render() {
+	        if (this.state.editing) {
+	            return this.renderForm();
+	        } else {
+	            return this.renderNormal();
+	        }
+	    }
+	});
+	
+	module.exports = Card;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Card = __webpack_require__(172);
+	
+	var List = React.createClass({
+	    displayName: 'List',
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            cards: ['card1', 'card2', "card3", "card4"] };
+	    },
+	    addCard: function addCard(i) {
+	        var arr = this.state.cards;
+	        arr.push(['This is a new card']);
+	        this.setState({ Cards: arr });
+	    },
+	
+	    removeCard: function removeCard(i) {
+	        var arr = this.state.cards;
+	        arr.splice(i, 1);
+	
+	        this.setState({ Cards: arr });
+	    },
+	
+	    updateCard: function updateCard(newText, i) {
+	        console.log("from List.updateCard");
+	        var arr = this.state.cards;
+	        arr[i] = newText;
+	        console.log(newText);
+	        this.setState({ Cards: arr });
+	    },
+	    eachCard: function eachCard(text, i) {
+	        return React.createElement(
+	            Card,
+	            { key: i, index: i, updateCardText: this.updateCard, deleteFromList: this.removeCard },
+	            text
+	        );
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'list' },
+	            this.state.cards.map(this.eachCard),
+	            React.createElement(
+	                'button',
+	                { onClick: this.addCard },
+	                'Add Card'
+	            )
+	        );
+	    }
+	
+	});
+	
+	module.exports = List;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var List = __webpack_require__(173);
+	var Card = __webpack_require__(172);
+	var Board = React.createClass({
+	    displayName: 'Board',
+	
+	    getInitialState: function getInitialState() {
+	        return { boards: ['board1', 'board2', 'board3'] };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'board' },
+	            React.createElement(List, null),
+	            React.createElement(List, null),
+	            React.createElement(List, null)
+	        );
+	    }
+	});
+	
+	module.exports = Board;
 
 /***/ }
 /******/ ]);
